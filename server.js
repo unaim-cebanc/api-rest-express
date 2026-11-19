@@ -6,21 +6,26 @@ const puerto = 3000;
 const app = express();
 const productos = require('./data/productos.json');
 
+app.use(express.static(path.join(__dirname, 'html')));
 
 app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, 'html', 'index.html'));
+    res.status(200).sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ------------- Productos -------------
-app.get('/productos', async (req, res) => {
+app.get('/productos', (req, res) => {
     try {
-        res.json(productos);
+        res.sendFile(path.join(__dirname, 'html', 'productos.html'));
     } catch (e) {
         console.log('Error:', e);
     }
 });
 
-app.get('productos/:id', async (req, res) => {
+app.get('/api/productos', (req, res) => {
+    res.json(productos);
+})
+
+app.get('/productos/:id', async (req, res) => {
     const id = Number(req.params.id);
     const producto = productos.find(p => p.id === id);
     
