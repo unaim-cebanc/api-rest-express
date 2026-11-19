@@ -1,0 +1,10 @@
+div {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, -50%);
+}

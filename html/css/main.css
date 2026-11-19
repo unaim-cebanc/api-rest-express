@@ -1,0 +1,32 @@
+:root {
+    --bg-boton: rgb(240, 240, 240);
+    --bg-boton-hover: rgb(230, 230, 230);
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+h1 {
+    margin-bottom: 0;
+}
+h2 {
+    margin-bottom: 0;
+}
+header {
+    margin-bottom: 50px;
+}
+.boton {
+    height: fit-content;
+    width: fit-content;
+    padding: 7px;
+    border: 1px solid black;
+    font-size: medium;
+    color: black;
+    text-decoration: none;
+    border-radius: 2px;
+    background-color: var(--bg-boton);
+}
+
+.boton:hover {
+    background-color: var(--bg-boton-hover);
+}
