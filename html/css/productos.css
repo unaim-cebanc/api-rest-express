@@ -1,0 +1,22 @@
+:root {
+    --bg-contenedor: rgb(200, 200, 200);
+}
+.contenedor {
+    padding: 15px;
+}
+.contenedor form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+}
+form button {
+    font-size: medium;
+}
+.contenedor_link {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
