@@ -8,13 +8,13 @@
 <body>
     <h1>Productos</h1>
     <hr>
-    <div>
+    <div class="contenedor">
         <h2>Todos los productos</h2>
         <hr>
-        <div></div>
+        <div id="contenedor_todos" class="contenedor_productos"></div>
     </div>
     <br>
-    <div>
+    <div class="contenedor">
         <h2>Buscar por id</h2>
         <hr>
         <form data-url="/productos" data-method="GET">
@@ -22,9 +22,9 @@
             <input type="number" id="id_get" required>
             <button type="submit">Buscar</button>
         </form>
-        <div></div>
+        <div id="contenedor_busqueda" class="contenedor_productos"></div>
     </div>
-    <div>
+    <div class="contenedor">
         <h2>Añadir producto</h2>
         <hr>
         <form data-url="/productos" data-method="POST">
@@ -42,7 +42,7 @@
             <button type="submit">Añadir</button>
         </form>
     </div>
-    <div>
+    <div class="contenedor">
         <h2>Actualizar producto</h2>
         <hr>
         <form data-url="/productos" data-method="PUT">
@@ -57,7 +57,7 @@
             <button type="submit">Actualizar</button>
         </form>
     </div>
-    <div>
+    <div class="contenedor">
         <h2>Eliminar producto</h2>
         <hr>
         <form data-url="/productos" data-method="DELETE">
@@ -66,8 +66,8 @@
             <button type="submit">Eliminar</button>
         </form>
     </div>
-    <div>
-        <a href="/">Volver</a>
+    <div class="contenedor_link">
+        <a href="/" class="volver">Volver</a>
     </div>
 </body>
 </html>
