@@ -4,9 +4,11 @@ const path = require('path');
 
 const puerto = 3000;
 const app = express();
+const pathProductos = path.join(__dirname, 'data', 'productos.json')
 const productos = require('./data/productos.json');
 
 app.use(express.static(path.join(__dirname, 'html')));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, 'index.html'));
@@ -34,6 +36,18 @@ app.get('/productos/:id', async (req, res) => {
     }
     
     res.json(producto);
+});
+
+app.post('/api/productos', async (req, res) => {
+    const nuevoProducto = {
+        id: productos.length + 1,
+        nombre: req.body.nombre,
+        precio: req.body.precio,
+        categoriaId: req.body.categoriaId
+    };
+    productos.push(nuevoProducto);
+    fs.writeFileSync(pathProductos, JSON.stringify(productos, null, 4));
+    res.status(201).json(nuevoProducto);
 });
 
 app.use((req, res) => {
