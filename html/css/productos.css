@@ -1,5 +1,5 @@
 :root {
-    --bg-contenedor: rgb(200, 200, 200);
+    --bg-contenedor: rgb(238, 238, 238);
 }
 .contenedor {
     padding: 15px;
@@ -19,4 +19,14 @@ form button {
     bottom: 20px;
     display: flex;
     gap: 10px;
+}
+
+.contenedor_productos:not(:empty) {
+    border-radius: 7px;
+    padding: 15px;
+    background-color: var(--bg-contenedor);
+}
+
+.contenedor_productos {
+    margin-top: 20px;
 }
