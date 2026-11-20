@@ -27,7 +27,7 @@ app.get('/api/productos', (req, res) => {
     res.json(productos);
 })
 
-app.get('/productos/:id', (req, res) => {
+app.get('/productos/:id', async (req, res) => {
     const id = Number(req.params.id);
     const producto = productos.find(p => p.id === id);
     
@@ -38,7 +38,7 @@ app.get('/productos/:id', (req, res) => {
     res.json(producto);
 });
 
-app.post('/api/productos', (req, res) => {
+app.post('/api/productos', async (req, res) => {
     const nuevoProducto = {
         id: productos.length + 1,
         nombre: req.body.nombre,
@@ -48,26 +48,6 @@ app.post('/api/productos', (req, res) => {
     productos.push(nuevoProducto);
     fs.writeFileSync(pathProductos, JSON.stringify(productos, null, 4));
     res.status(201).json(nuevoProducto);
-});
-
-app.put('/productos/:id', (req, res) => {
-    const id = Number(req.params.id);
-    const index = productos.findIndex(p => p.id === id);
-    
-    if (index === -1) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
-    }
-    
-    productos[index] = {
-        id: id,
-        nombre: req.body.nombre,
-        precio: req.body.precio,
-        categoriaId: req.body.categoriaId
-    };
-    
-    fs.writeFileSync(pathProductos, JSON.stringify(productos, null, 4));
-    
-    res.json(productos[index]);
 });
 
 app.use((req, res) => {
