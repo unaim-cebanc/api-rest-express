@@ -23,6 +23,12 @@ document.querySelectorAll("form").forEach((form) => {
             const url = `/productos/${id}`
             modificarProducto(url);
         }
+        if (metodo === 'DELETE') {
+            const num = document.getElementById('id_delete');
+            const id = num.valueAsNumber;
+            const url = `/productos/${id}`;
+            eliminarProducto(url);
+        }
     });
 });
 
@@ -94,6 +100,30 @@ async function modificarProducto(url) {
     
     const p = document.createElement('p');
     p.textContent = 'Producto actualizado';
+    contenedor.appendChild(p);
+    
+    const ul = document.createElement('ul');
+    Object.entries(producto).forEach(([clave, valor]) => {
+        const li = document.createElement('li');
+        li.textContent = `${clave}: ${valor}`;
+        ul.appendChild(li);
+    });
+    contenedor.appendChild(ul);
+}
+
+async function eliminarProducto(url) {
+    const respuesta = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const producto = await respuesta.json();
+    const contenedor = document.getElementById('contenedor_delete');
+    contenedor.replaceChildren();
+    
+    const p = document.createElement('p');
+    p.textContent = 'Producto eliminado';
     contenedor.appendChild(p);
     
     const ul = document.createElement('ul');
