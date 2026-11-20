@@ -50,19 +50,19 @@ app.post('/api/productos', (req, res) => {
     res.status(201).json(nuevoProducto);
 });
 
-app.put('/producto/:id', (req, res) => {
-    const id = Number(req.body.id);
+app.put('/productos/:id', (req, res) => {
+    const id = Number(req.params.id);
     const index = productos.findIndex(p => p.id === id);
     
     if (index === -1) {
-        return res.status(404).json({ error: 'Cliente no encontrado' });
+        return res.status(404).json({ error: 'Producto no encontrado' });
     }
     
     productos[index] = {
         id: id,
-        nombre: res.body.nombre,
-        precio: res.body.precio,
-        categoriaId: res.body.categoriaId
+        nombre: req.body.nombre,
+        precio: req.body.precio,
+        categoriaId: req.body.categoriaId
     };
     
     fs.writeFileSync(pathProductos, JSON.stringify(productos, null, 4));
