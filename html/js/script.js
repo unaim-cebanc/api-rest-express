@@ -4,13 +4,17 @@ document.querySelectorAll("form").forEach((form) => {
         
         const num = document.getElementById('id_get');
         const id = num.valueAsNumber;
-        const url = `/productos/${id}`;
         const metodo = form.dataset.method;
         
+        console.log(metodo);
+        
         if (metodo === 'GET') {
+            const url = `/productos/${id}`;
             cargarProducto(url);
         }
+        
         if (metodo === 'POST') {
+            const url = '/api/productos'
             añadirProducto(url);
         }
     });
@@ -50,9 +54,19 @@ async function cargarProducto(url) {
 }
 
 async function añadirProducto(url) {
-    const respuesta = await fetch(url);
+    const respuesta = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nombre: document.getElementById('nombre_post').value,
+            precio: Number(document.getElementById('precio_post').value),
+            categoriaId: Number(document.getElementById('categoriaId_post').value)
+        })
+    });
     const label = document.getElementById('respuesta_post');
-    label.textContent(respuesta.status.toString());
+    label.textContent = respuesta.status.toString();
 }
 
 cargarDatos();
