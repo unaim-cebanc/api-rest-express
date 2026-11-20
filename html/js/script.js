@@ -2,13 +2,13 @@ document.querySelectorAll("form").forEach((form) => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         
-        const num = document.getElementById('id_get');
-        const id = num.valueAsNumber;
         const metodo = form.dataset.method;
         
         console.log(metodo);
         
         if (metodo === 'GET') {
+            const num = document.getElementById('id_get');
+            const id = num.valueAsNumber;
             const url = `/productos/${id}`;
             cargarProducto(url);
         }
@@ -16,6 +16,12 @@ document.querySelectorAll("form").forEach((form) => {
         if (metodo === 'POST') {
             const url = '/api/productos'
             añadirProducto(url);
+        }
+        if (metodo === 'PUT') {
+            const num = document.getElementById('id_put');
+            const id = num.valueAsNumber;
+            const url = `/productos/${id}`
+            modificarProducto(url);
         }
     });
 });
@@ -69,4 +75,33 @@ async function añadirProducto(url) {
     label.textContent = respuesta.status.toString();
 }
 
+async function modificarProducto(url) {
+    const respuesta = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nombre: document.getElementById('nombre_put').value,
+            precio: Number(document.getElementById('precio_put').value),
+            categoriaId: Number(document.getElementById('categoriaId_put').value)
+        })
+    });
+    
+    const producto = await respuesta.json();
+    const contenedor = document.getElementById('contenedor_put');
+    contenedor.replaceChildren();
+    
+    const p = document.createElement('p');
+    p.textContent = 'Producto actualizado';
+    contenedor.appendChild(p);
+    
+    const ul = document.createElement('ul');
+    Object.entries(producto).forEach(([clave, valor]) => {
+        const li = document.createElement('li');
+        li.textContent = `${clave}: ${valor}`;
+        ul.appendChild(li);
+    });
+    contenedor.appendChild(ul);
+}
 cargarDatos();
