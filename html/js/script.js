@@ -8,7 +8,10 @@ document.querySelectorAll("form").forEach((form) => {
         const metodo = form.dataset.method;
         
         if (metodo === 'GET') {
-            cargarProducto(url)
+            cargarProducto(url);
+        }
+        if (metodo === 'POST') {
+            añadirProducto(url);
         }
     });
 });
@@ -35,6 +38,8 @@ async function cargarProducto(url) {
     const respuesta = await fetch(url);
     const producto = await respuesta.json();
     const contenedor = document.getElementById('contenedor_busqueda');
+    contenedor.replaceChildren();
+    
     const ul = document.createElement('ul');
     Object.entries(producto).forEach(([clave, valor]) => {
         const li = document.createElement('li');
@@ -43,4 +48,11 @@ async function cargarProducto(url) {
     });
     contenedor.appendChild(ul);
 }
+
+async function añadirProducto(url) {
+    const respuesta = await fetch(url);
+    const label = document.getElementById('respuesta_post');
+    label.textContent(respuesta.status.toString());
+}
+
 cargarDatos();
