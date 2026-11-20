@@ -6,6 +6,7 @@ const puerto = 3000;
 const app = express();
 const pathProductos = path.join(__dirname, 'data', 'productos.json')
 const productos = require('./data/productos.json');
+const { error } = require('node:console');
 
 app.use(express.static(path.join(__dirname, 'html')));
 app.use(express.json());
@@ -69,6 +70,19 @@ app.put('/productos/:id', (req, res) => {
     
     res.json(productos[index]);
 });
+
+app.delete('/productos/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const index = productos.findIndex(p => p.id === id);
+    if (index === -1) {
+        return res.status(404).json({ error: 'Producto no encotrado' });
+    }
+    productos.splice(index, 1);
+    
+    fs.writeFileSync(pathProductos, JSON.stringify(productos, null, 4));
+    
+    res.json({ mensaje: 'Cliente eliminado correctamente' });
+})
 
 app.use((req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>');
